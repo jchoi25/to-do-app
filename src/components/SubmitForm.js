@@ -2,9 +2,14 @@ import { useRecoilState } from "recoil";
 import { useState, useRef } from 'react'
 import { toDoListState } from './RecoilState'
 
+// temporary method to get a random id
+const getRandomId = (num) => {
+  return Math.floor(Math.random() * num)
+}
+
 const SubmitForm = () => {
   const [toDoList, setToDoList] = useRecoilState(toDoListState)
-  const [id, setId] = useState(0)
+  const [id, setId] = useState(getRandomId(100000))
   const [date, setDate] = useState(new Date())
   const inputRef = useRef()
   
@@ -17,7 +22,7 @@ const SubmitForm = () => {
     }
     setToDoList(toDoList.concat(itemObject))
     setDate(new Date())
-    setId(itemObject.id + 1)
+    setId(getRandomId(100000))
   }
 
   const handleDateChange = (event) => {
@@ -27,16 +32,16 @@ const SubmitForm = () => {
   return (
     <div>
       <form onSubmit={addItem}>
-      <input
-        type='text'
-        ref={inputRef}
-      />
-      <input
-        type='date'
-        value={date}
-        onChange={handleDateChange}
-      />
-      <button type="submit">저장</button>
+        <input
+          type='text'
+          ref={inputRef}
+        />
+        <input
+          type='date'
+          value={date}
+          onChange={handleDateChange}
+        />
+        <button type="submit">저장</button>
       </form>
     </div>
   );
