@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toDoListState } from './RecoilState'
 import { useRecoilState } from 'recoil'
 import { useState } from 'react'
 
 const Item = ({ item }) => {
   const [toDoList, setToDoList] = useRecoilState(toDoListState)
+  const navigate = useNavigate()
   
   const index = toDoList.findIndex(listItem => listItem === item)
   const itemAtIndex = toDoList[index]
@@ -33,15 +34,15 @@ const Item = ({ item }) => {
       date: date
     }
     setToDoList([...toDoList.slice(0, index), itemObject, ...toDoList.slice(index + 1)])
-    console.log(toDoList[index].content)
+    navigate(`/${id}`)
+    console.log(toDoList)
   }
 
   const handleContentChange = (event) => {
     setContent(event.target.value)
   }
   const handleIdChange = (event) => {
-    setId(event.target.value)
-    console.log(id)
+    setId(Number(event.target.value))
   }
   const handleDateChange = (event) => {
     setDate(event.target.value)
@@ -65,13 +66,11 @@ const Item = ({ item }) => {
           <p>to do:</p>
           <input type='text' defaultValue={content} onChange={handleContentChange}/>
           <p>아이디:</p>
-          <input type='text' defaultValue={id} onChange={handleIdChange}/>
+          <input defaultValue={id} onChange={handleIdChange}/>
           <p>날짜:</p>
           <input type='text' defaultValue={date} onChange={handleDateChange}/>
           <br/> {/*placeholder before adding css*/}
-          <Link to={`/${id}`}>
-            <button onClick={editItems}>저장</button>
-          </Link>
+          <button onClick={editItems}>저장</button>
         </div>
       )
     }
