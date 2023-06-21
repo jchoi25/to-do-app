@@ -31,6 +31,7 @@ const SubmitForm = () => {
 
   return (
     <div>
+      <p>To Do 추가</p>
       <form onSubmit={addItem}>
         <input
           type='text'

@@ -35,7 +35,6 @@ const Item = ({ item }) => {
     }
     setToDoList([...toDoList.slice(0, index), itemObject, ...toDoList.slice(index + 1)])
     navigate(`/${id}`)
-    console.log(toDoList)
   }
 
   const handleContentChange = (event) => {
